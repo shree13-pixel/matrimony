@@ -7,7 +7,6 @@ import MobileVerify from "./pages/MobileVerify";
 import AadharVerify from "./pages/AadharVerify";
 import ProfileList from "./components/matchmaking/ProfileList";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
 import HelpPage from "./pages/HelpPage";
 import ProfileDetails from "./pages/ProfileDetails";
 import About from "./pages/About";
@@ -29,7 +28,6 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/membership" element={<Membership />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/register" element={<RegisterPage />} />
             <Route path="/chatbot" element={<Chatbot/>} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/help" element={<HelpPage />} />

@@ -41,8 +41,7 @@ const Header = () => {
 
           {/* Action Buttons */}
           <div className="header-actions">
-            <Link to="/login" className="btn-login">Login</Link>
-            <Link to="/register" className="btn-register">Register</Link>
+            <Link to="/login" className="btn-register">Register</Link>
           </div>
         </div>
       </header>

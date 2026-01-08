@@ -1,10 +1,51 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Chatbot from "../components/Chatbot/chatbot";
 import { useAuth } from "../context/AuthContext";
 import './Home.css';
 
 export default function Home() {
   const { isAuthenticated, user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [loginData, setLoginData] = useState({ mobile: '', password: '' });
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
+
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData({ ...loginData, [name]: value });
+    setLoginError('');
+  };
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!loginData.mobile || !loginData.password) {
+      setLoginError('Please enter mobile number and password');
+      return;
+    }
+
+    if (loginData.mobile.length !== 10) {
+      setLoginError('Enter valid 10-digit mobile number');
+      return;
+    }
+
+    setLoginLoading(true);
+    setLoginError('');
+    
+    // Simulating login - replace with actual API call
+    try {
+      // In a real app, this would call your authentication API
+      // For now, simulating successful login
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Navigate to profiles page after login
+      navigate('/profiles');
+    } catch (error) {
+      setLoginError('Login failed. Please try again.');
+      setLoginLoading(false);
+    }
+  };
 
   return (
     <div className="home-container">
@@ -25,30 +66,53 @@ export default function Home() {
           {/* Floating Login Card */}
           <div className="login-card">
             <h2>Login</h2>
-            <form className="login-form">
+            {loginError && (
+              <div style={{
+                backgroundColor: '#f8d7da',
+                color: '#721c24',
+                padding: '8px 12px',
+                borderRadius: '4px',
+                marginBottom: '12px',
+                fontSize: '0.9rem'
+              }}>
+                {loginError}
+              </div>
+            )}
+            <form className="login-form" onSubmit={handleLoginSubmit}>
               <div className="form-group">
                 <input
                   type="text"
+                  name="mobile"
                   placeholder="Enter Mobile No"
                   className="form-input"
+                  value={loginData.mobile}
+                  onChange={handleLoginChange}
+                  maxLength="10"
+                  disabled={loginLoading}
                 />
               </div>
               <div className="form-group">
                 <input
                   type="password"
+                  name="password"
                   placeholder="Password"
                   className="form-input"
+                  value={loginData.password}
+                  onChange={handleLoginChange}
+                  disabled={loginLoading}
                 />
               </div>
               <div className="forgot-password">
                 <Link to="/forgot-password" className="forgot-link">Forgot Password?</Link>
               </div>
-              <button type="submit" className="login-btn">Login</button>
+              <button type="submit" className="login-btn" disabled={loginLoading}>
+                {loginLoading ? 'Logging In...' : 'Login'}
+              </button>
               <div className="terms-text">
                 You agree to our <Link to="/terms" className="terms-link">Terms & Conditions</Link>
               </div>
               <div className="register-text">
-                Don't have an account? <Link to="/register" className="register-link">Register now</Link>
+                Don't have an account? <Link to="/login" className="register-link">Register now</Link>
               </div>
             </form>
           </div>

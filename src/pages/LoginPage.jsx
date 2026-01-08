@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function LoginPage() {
-  const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -12,9 +11,15 @@ export default function LoginPage() {
     gender: '',
     mobile: ''
   });
+  const [aadharData, setAadharData] = useState({
+    lastFourDigits: '',
+    verificationMobile: ''
+  });
+  const [aadharVerified, setAadharVerified] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const { login, register } = useAuth();
+  const [verificationLoading, setVerificationLoading] = useState(false);
+  const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,15 +31,13 @@ export default function LoginPage() {
     }
   };
 
-  const validateLoginForm = () => {
-    const newErrors = {};
-    if (!formData.email) newErrors.email = 'Email is required';
-    if (!formData.password) newErrors.password = 'Password is required';
-    return newErrors;
-  };
+  
 
   const validateRegisterForm = () => {
     const newErrors = {};
+    if (!aadharVerified) {
+      newErrors.aadhar = 'Please verify your Aadhar first';
+    }
     if (!formData.name) newErrors.name = 'Name is required';
     if (!formData.email) newErrors.email = 'Email is required';
     if (!formData.password) newErrors.password = 'Password is required';
@@ -46,24 +49,6 @@ export default function LoginPage() {
       newErrors.mobile = 'Enter valid 10-digit mobile number';
     }
     return newErrors;
-  };
-
-  const handleLogin = async () => {
-    const validationErrors = validateLoginForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-
-    setLoading(true);
-    const result = await login({ email: formData.email, password: formData.password });
-    setLoading(false);
-
-    if (result.success) {
-      navigate('/matches');
-    } else {
-      setErrors({ general: result.error || 'Login failed' });
-    }
   };
 
   const handleRegister = async () => {
@@ -85,113 +70,71 @@ export default function LoginPage() {
     setLoading(false);
 
     if (result.success) {
-      navigate('/mobile-verify');
+      navigate('/profiles');
     } else {
       setErrors({ general: result.error || 'Registration failed' });
     }
   };
+const handleAadharChange = (e) => {
+    const { name, value } = e.target;
+    setAadharData({ ...aadharData, [name]: value });
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
+  };
 
+  const validateAadhar = () => {
+    const newErrors = {};
+    if (!aadharData.lastFourDigits) {
+      newErrors.lastFourDigits = 'Aadhar last 4 digits are required';
+    } else if (aadharData.lastFourDigits.length !== 4 || !/^\d+$/.test(aadharData.lastFourDigits)) {
+      newErrors.lastFourDigits = 'Enter valid 4-digit Aadhar number';
+    }
+    if (!aadharData.verificationMobile) {
+      newErrors.verificationMobile = 'Registered mobile number is required';
+    } else if (aadharData.verificationMobile.length !== 10) {
+      newErrors.verificationMobile = 'Enter valid 10-digit mobile number';
+    }
+    return newErrors;
+  };
+
+  const handleAadharVerification = async () => {
+    const validationErrors = validateAadhar();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setVerificationLoading(true);
+    // Simulating Aadhar verification API call
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Verification successful
+      setAadharVerified(true);
+      setErrors({});
+    } catch (error) {
+      setErrors({ general: 'Aadhar verification failed. Please try again.' });
+    }
+    setVerificationLoading(false);
+  };
   return (
     <div className="page-container fade-in">
-      <h2><i className="fas fa-sign-in-alt"></i> {isLogin ? 'Login' : 'Register'}</h2>
+      <h2><i className="fas fa-user-plus"></i> Register</h2>
 
       <div className="card">
-        {/* Tab Switcher */}
-        <div className="tab-container" style={{ display: 'flex', marginBottom: '1rem', borderBottom: '1px solid #ddd' }}>
-          <button
-            className={`tab-btn ${isLogin ? 'active' : ''}`}
-            onClick={() => {
-              setIsLogin(true);
-              setErrors({});
-              setFormData({ email: '', password: '', name: '', profileFor: '', gender: '', mobile: '' });
-            }}
-            style={{
-              flex: 1,
-              padding: '0.5rem',
-              border: 'none',
-              background: isLogin ? '#007bff' : 'transparent',
-              color: isLogin ? 'white' : '#666',
-              cursor: 'pointer'
-            }}
-          >
-            <i className="fas fa-sign-in-alt"></i> Login
-          </button>
-          <button
-            className={`tab-btn ${!isLogin ? 'active' : ''}`}
-            onClick={() => {
-              setIsLogin(false);
-              setErrors({});
-              setFormData({ email: '', password: '', name: '', profileFor: '', gender: '', mobile: '' });
-            }}
-            style={{
-              flex: 1,
-              padding: '0.5rem',
-              border: 'none',
-              background: !isLogin ? '#007bff' : 'transparent',
-              color: !isLogin ? 'white' : '#666',
-              cursor: 'pointer'
-            }}
-          >
-            <i className="fas fa-user-plus"></i> Register
-          </button>
-        </div>
-
         {errors.general && (
           <div className="error-message" style={{ marginBottom: '1rem', textAlign: 'center' }}>
             {errors.general}
           </div>
         )}
 
-        {isLogin ? (
-          // Login Form
-          <>
-            <p className="text-center mb-3" style={{ color: 'var(--text-color)' }}>
-              Welcome back! Please sign in to your account
-            </p>
-
-            <div className="form-group">
-              <label><i className="fas fa-envelope"></i> Email:</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Enter your email"
-                className={errors.email ? 'error' : ''}
-              />
-              {errors.email && <div className="error-message">{errors.email}</div>}
-            </div>
-
-            <div className="form-group">
-              <label><i className="fas fa-lock"></i> Password:</label>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-                className={errors.password ? 'error' : ''}
-              />
-              {errors.password && <div className="error-message">{errors.password}</div>}
-            </div>
-
-            <button
-              onClick={handleLogin}
-              className="btn btn-primary"
-              style={{ width: '100%', fontSize: '1.1rem' }}
-              disabled={loading}
-            >
-              {loading ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-sign-in-alt"></i>}
-              {loading ? ' Signing In...' : ' Sign In'}
-            </button>
-          </>
-        ) : (
-          // Registration Form
-          <>
+        {/* Registration Form */}
+        <>
             <p className="text-center mb-3" style={{ color: 'var(--text-color)' }}>
               Create your account to find your perfect match
             </p>
 
+            
             <div className="form-group">
               <label><i className="fas fa-user"></i> Full Name:</label>
               <input
@@ -201,6 +144,7 @@ export default function LoginPage() {
                 onChange={handleChange}
                 placeholder="Enter your full name"
                 className={errors.name ? 'error' : ''}
+                disabled={!aadharVerified}
               />
               {errors.name && <div className="error-message">{errors.name}</div>}
             </div>
@@ -214,6 +158,7 @@ export default function LoginPage() {
                 onChange={handleChange}
                 placeholder="Enter your email"
                 className={errors.email ? 'error' : ''}
+                disabled={!aadharVerified}
               />
               {errors.email && <div className="error-message">{errors.email}</div>}
             </div>
@@ -227,6 +172,7 @@ export default function LoginPage() {
                 onChange={handleChange}
                 placeholder="Create a password"
                 className={errors.password ? 'error' : ''}
+                disabled={!aadharVerified}
               />
               {errors.password && <div className="error-message">{errors.password}</div>}
             </div>
@@ -238,6 +184,7 @@ export default function LoginPage() {
                 value={formData.profileFor}
                 onChange={handleChange}
                 className={errors.profileFor ? 'error' : ''}
+                disabled={!aadharVerified}
               >
                 <option value="">Select Profile Type</option>
                 <option value="self">Self</option>
@@ -254,6 +201,7 @@ export default function LoginPage() {
                 value={formData.gender}
                 onChange={handleChange}
                 className={errors.gender ? 'error' : ''}
+                disabled={!aadharVerified}
               >
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
@@ -272,21 +220,115 @@ export default function LoginPage() {
                 placeholder="Enter 10-digit mobile number"
                 maxLength="10"
                 className={errors.mobile ? 'error' : ''}
+                disabled={!aadharVerified}
               />
               {errors.mobile && <div className="error-message">{errors.mobile}</div>}
             </div>
+{/* Aadhar Verification Section */}
+            <div style={{
+              backgroundColor: '#e8f4f8',
+              border: '1px solid #b8e0e8',
+              borderRadius: '6px',
+              padding: '16px',
+              marginBottom: '20px'
+            }}>
+              <h4 style={{ marginTop: 0, marginBottom: '12px', color: '#0056b3' }}>
+                <i className="fas fa-id-card"></i> Aadhar Verification
+              </h4>
+
+              {aadharVerified && (
+                <div style={{
+                  backgroundColor: '#d4edda',
+                  color: '#155724',
+                  padding: '10px 12px',
+                  borderRadius: '4px',
+                  marginBottom: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
+                  <i className="fas fa-check-circle"></i>
+                  <span>Aadhar verification successful!</span>
+                </div>
+              )}
+
+              <div className="form-group">
+                <label><i className="fas fa-id-card"></i> Aadhar Last 4 Digits:</label>
+                <input
+                  type="text"
+                  name="lastFourDigits"
+                  value={aadharData.lastFourDigits}
+                  onChange={handleAadharChange}
+                  placeholder="Enter last 4 digits of Aadhar"
+                  maxLength="4"
+                  disabled={aadharVerified}
+                  className={errors.lastFourDigits ? 'error' : ''}
+                />
+                {errors.lastFourDigits && <div className="error-message">{errors.lastFourDigits}</div>}
+              </div>
+
+              <div className="form-group">
+                <label><i className="fas fa-mobile-alt"></i> Registered Mobile Number:</label>
+                <input
+                  type="text"
+                  name="verificationMobile"
+                  value={aadharData.verificationMobile}
+                  onChange={handleAadharChange}
+                  placeholder="Enter registered mobile number"
+                  maxLength="10"
+                  disabled={aadharVerified}
+                  className={errors.verificationMobile ? 'error' : ''}
+                />
+                {errors.verificationMobile && <div className="error-message">{errors.verificationMobile}</div>}
+              </div>
+
+              {!aadharVerified && (
+                <button
+                  type="button"
+                  onClick={handleAadharVerification}
+                  disabled={verificationLoading}
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    backgroundColor: '#0056b3',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontSize: '1rem',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  {verificationLoading ? (
+                    <>
+                      <i className="fas fa-spinner fa-spin"></i> Verifying...
+                    </>
+                  ) : (
+                    <>
+                      <i className="fas fa-check"></i> Verify Aadhar
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+
+            {errors.aadhar && (
+              <div className="error-message" style={{ marginBottom: '1rem', textAlign: 'center' }}>
+                {errors.aadhar}
+              </div>
+            )}
 
             <button
               onClick={handleRegister}
               className="btn btn-success"
               style={{ width: '100%', fontSize: '1.1rem' }}
-              disabled={loading}
+              disabled={loading || !aadharVerified}
             >
               {loading ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-user-plus"></i>}
-              {loading ? ' Creating Account...' : ' Create Account'}
+              {loading ? ' Registering...' : ' Register'}
             </button>
-          </>
-        )}
+        </>
+        
 
         <div className="text-center mt-3">
           <small style={{ color: 'var(--text-color)', opacity: 0.7 }}>

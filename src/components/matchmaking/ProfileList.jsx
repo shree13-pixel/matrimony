@@ -1,57 +1,92 @@
+import { Link } from "react-router-dom";
+import ProfileCard from "./ProfileCard";
+
 function ProfileList() {
   const profile = JSON.parse(localStorage.getItem("profile"));
 
-  if (!profile) {
-    return (
-      <div className="page-container fade-in">
-        <h2><i className="fas fa-users"></i> Matching Profiles</h2>
-        <div className="card">
-          <p className="text-center">No profiles found. Please create a profile first.</p>
-          <div className="text-center mt-3">
-            <a href="/create-profile" className="btn btn-primary">
-              <i className="fas fa-user-plus"></i> Create Profile
-            </a>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // Sample matched profiles data
+  const matchedProfiles = [
+    {
+      id: 1,
+      name: "Priya",
+      age: 26,
+      location: "Chennai, Tamil Nadu",
+      photo: null,
+      matchReason: "Shared values, location compatibility, education match",
+      compatibilityScore: 85
+    },
+    {
+      id: 2,
+      name: "Anjali",
+      age: 24,
+      location: "Bangalore, Karnataka",
+      photo: null,
+      matchReason: "Similar career interests and family values",
+      compatibilityScore: 78
+    },
+    {
+      id: 3,
+      name: "Divya",
+      age: 25,
+      location: "Hyderabad, Telangana",
+      photo: null,
+      matchReason: "Compatible interests and life goals",
+      compatibilityScore: 82
+    },
+    {
+      id: 4,
+      name: "Sneha",
+      age: 23,
+      location: "Mumbai, Maharashtra",
+      photo: null,
+      matchReason: "Shared hobbies and cultural preferences",
+      compatibilityScore: 76
+    },
+    {
+      id: 5,
+      name: "Meera",
+      age: 27,
+      location: "Delhi, NCR",
+      photo: null,
+      matchReason: "Similar professional background and lifestyle",
+      compatibilityScore: 80
+    }
+  ];
 
   return (
     <div className="page-container fade-in">
-      <h2><i className="fas fa-users"></i> Matching Profiles</h2>
+      <h2><i className="fas fa-heart"></i> My Matches</h2>
 
-      <div className="profile-card">
-        <h3><i className="fas fa-user-circle"></i> {profile.name || 'Profile'}</h3>
-        <div className="profile-info">
-          <p><strong><i className="fas fa-birthday-cake"></i> Date of Birth:</strong> {profile.dob ? `${profile.dob.day}/${profile.dob.month}/${profile.dob.year}` : 'Not specified'}</p>
-          <p><strong><i className="fas fa-language"></i> Mother Tongue:</strong> {profile.motherTongue || 'Not specified'}</p>
-          <p><strong><i className="fas fa-pray"></i> Religion:</strong> {profile.religion || 'Not specified'}</p>
-          <p><strong><i className="fas fa-users"></i> Caste:</strong> {profile.caste || 'Not specified'}</p>
-          <p><strong><i className="fas fa-map-marker-alt"></i> Location:</strong> {profile.location || 'Not specified'}</p>
-          <p><strong><i className="fas fa-briefcase"></i> Profession:</strong> {profile.profession || 'Not specified'}</p>
-          <p><strong><i className="fas fa-ruler-vertical"></i> Height:</strong> {profile.height || 'Not specified'}</p>
-          <p><strong><i className="fas fa-ring"></i> Marital Status:</strong> {profile.maritalStatus || 'Not specified'}</p>
-          <p><strong><i className="fas fa-utensils"></i> Eating Habit:</strong> {profile.eatingHabit || 'Not specified'}</p>
-          {profile.raasi && <p><strong><i className="fas fa-star"></i> Raasi:</strong> {profile.raasi}</p>}
-          {profile.natchathiram && <p><strong><i className="fas fa-moon"></i> Natchathiram:</strong> {profile.natchathiram}</p>}
-        </div>
+      <div className="card">
+        {!profile ? (
+          <>
+            <p className="text-center" style={{ color: "var(--text-color)", marginBottom: "1.5rem" }}>
+              Create your profile to see matches.
+            </p>
+            <div className="text-center">
+              <Link to="/create-profile" className="btn btn-primary" style={{ display: "inline-block", padding: "10px 24px", fontSize: "1rem" }}>
+                <i className="fas fa-user-plus"></i> Create Profile
+              </Link>
+            </div>
+          </>
+        ) : (
+          <>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+              <p style={{ color: "var(--text-color)", margin: 0 }}>
+                Based on your profile, we found {matchedProfiles.length} compatible matches for you. View their profiles and send connection requests.
+              </p>
+              <Link to="/create-profile" className="btn btn-info" style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "8px 16px", fontSize: "0.95rem", whiteSpace: "nowrap" }}>
+                <i className="fas fa-user-circle"></i> My Profile
+              </Link>
+            </div>
 
-        <div className="text-center mt-3">
-          <button className="btn btn-success" style={{ fontSize: '1.1rem', padding: '12px 24px' }}>
-            <i className="fas fa-heart"></i> Connect
-          </button>
-        </div>
-      </div>
-
-      <div className="card mt-3">
-        <h4><i className="fas fa-info-circle"></i> Profile Completion Tips</h4>
-        <ul style={{ paddingLeft: '1.5rem' }}>
-          <li>Complete your profile with accurate information for better matches</li>
-          <li>Upload a clear, recent photo to increase your visibility</li>
-          <li>Be honest about your preferences and expectations</li>
-          <li>Regularly check for new matches and connection requests</li>
-        </ul>
+            <div>
+              {matchedProfiles.map((matchProfile) => (
+                <ProfileCard key={matchProfile.id} profile={matchProfile} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

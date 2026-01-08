@@ -598,7 +598,7 @@ function CreateProfilePage() {
           </button>
         )}
 
-        {currentStep < 13 ? (
+        {currentStep < 9 ? (
           <button onClick={nextStep} className="btn btn-primary" style={{ marginLeft: 'auto' }}>
             Next <i className="fas fa-arrow-right"></i>
           </button>
