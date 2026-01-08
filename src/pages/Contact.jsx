@@ -1,8 +1,11 @@
 import React from 'react';
+import "../styles/pageBackground.css";
 
 const Contact = () => {
   return (
-    <div className="page-container fade-in">
+    <div className="page-with-background">
+      <div className="page-content">
+        <div className="page-container fade-in">
       <h1>Contact Us</h1>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
@@ -46,6 +49,8 @@ const Contact = () => {
             </button>
           </form>
         </div>
+      </div>
+      </div>
       </div>
     </div>
   );

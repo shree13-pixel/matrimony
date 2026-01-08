@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import ProfileCard from "./ProfileCard";
+//import "../styles/pageBackground.css";
+import "../../styles/pageBackground.css";
 
 function ProfileList() {
   const profile = JSON.parse(localStorage.getItem("profile"));

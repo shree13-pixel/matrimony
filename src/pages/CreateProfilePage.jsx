@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/pageBackground.css";
 
 function CreateProfilePage() {
   const navigate = useNavigate();
@@ -45,7 +46,9 @@ function CreateProfilePage() {
     fatherOccupation: '',
     motherName: '',
     motherOccupation: '',
-    siblings: '',
+    siblingType: '',
+    siblingCount: '',
+    siblingStatus: '',
     familyType: '',
     familyStatus: '',
     familyValues: '',
@@ -76,6 +79,22 @@ function CreateProfilePage() {
     expectations: '',
     aboutMe: ''
   });
+
+  // Raasi to Natchathiram mapping
+  const raasisNatchathirams = {
+    'aries': ['Ashwini', 'Bharani', 'Krittika'],
+    'taurus': ['Rohini', 'Mrigashira', 'Ardra'],
+    'gemini': ['Punarvasu', 'Pushya', 'Ashlesha'],
+    'cancer': ['Magha', 'Purva Phalguni', 'Uttara Phalguni'],
+    'leo': ['Hasta', 'Chitra', 'Swati'],
+    'virgo': ['Vishakha', 'Anuradha', 'Jyeshtha'],
+    'libra': ['Mula', 'Purva Ashadha', 'Uttara Ashadha'],
+    'scorpio': ['Sravana', 'Dhanishtha', 'Shatabishak'],
+    'sagittarius': ['Purva Bhadrapada', 'Uttara Bhadrapada', 'Revati'],
+    'capricorn': ['Ashwini', 'Bharani', 'Krittika'],
+    'aquarius': ['Rohini', 'Mrigashira', 'Ardra'],
+    'pisces': ['Punarvasu', 'Pushya', 'Ashlesha']
+  };
 
   useEffect(() => {
     
@@ -162,15 +181,43 @@ function CreateProfilePage() {
             </div>
             <div className="form-group">
               <label>Date of Birth:</label>
-              <div className="grid-inputs">
-                <input name="dob.day" placeholder="DD" value={profile.dob.day} onChange={handleChange} maxLength="2" />
-                <input name="dob.month" placeholder="MM" value={profile.dob.month} onChange={handleChange} maxLength="2" />
-                <input name="dob.year" placeholder="YYYY" value={profile.dob.year} onChange={handleChange} maxLength="4" />
+              <div className="grid-inputs" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
+                <select name="dob.day" value={profile.dob.day} onChange={handleChange}>
+                  <option value="">Select Day</option>
+                  {Array.from({ length: 31 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
+                <select name="dob.month" value={profile.dob.month} onChange={handleChange}>
+                  <option value="">Select Month</option>
+                  {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((month, i) => (
+                    <option key={i} value={i + 1}>{month}</option>
+                  ))}
+                </select>
+                <select name="dob.year" value={profile.dob.year} onChange={handleChange}>
+                  <option value="">Select Year</option>
+                  {Array.from({ length: 60 }, (_, i) => {
+                    const year = new Date().getFullYear() - i;
+                    return <option key={year} value={year}>{year}</option>;
+                  })}
+                </select>
               </div>
             </div>
             <div className="form-group">
               <label>Mother Tongue:</label>
-              <input name="motherTongue" value={profile.motherTongue} onChange={handleChange} placeholder="e.g., Tamil, Hindi, English" />
+              <select name="motherTongue" value={profile.motherTongue} onChange={handleChange}>
+                <option value="">Select Mother Tongue</option>
+                <option value="tamil">Tamil</option>
+                <option value="telugu">Telugu</option>
+                <option value="kannada">Kannada</option>
+                <option value="malayalam">Malayalam</option>
+                <option value="hindi">Hindi</option>
+                <option value="english">English</option>
+                <option value="marathi">Marathi</option>
+                <option value="gujarati">Gujarati</option>
+                <option value="urdu">Urdu</option>
+                <option value="punjabi">Punjabi</option>
+              </select>
             </div>
             <div className="form-group">
               <label>Email Address:</label>
@@ -198,9 +245,23 @@ function CreateProfilePage() {
               <label>Mother's Occupation:</label>
               <input name="motherOccupation" value={profile.motherOccupation} onChange={handleChange} placeholder="Mother's profession" />
             </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div className="form-group">
+                <label>Sibling Type:</label>
+                <select name="siblingType" value={profile.siblingType} onChange={handleChange}>
+                  <option value="">Select Type</option>
+                  <option value="sister">Sister</option>
+                  <option value="brother">Brother</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Number of Siblings:</label>
+                <input type="number" name="siblingCount" value={profile.siblingCount} onChange={handleChange} placeholder="Enter count" min="0" />
+              </div>
+            </div>
             <div className="form-group">
-              <label>Siblings:</label>
-              <input name="siblings" value={profile.siblings} onChange={handleChange} placeholder="e.g., 2 brothers, 1 sister" />
+              <label>Status of Siblings:</label>
+              <input name="siblingStatus" value={profile.siblingStatus} onChange={handleChange} placeholder="e.g., Married, Unmarried, Settled Abroad" />
             </div>
             <div className="form-group">
               <label>Family Type:</label>
@@ -240,19 +301,51 @@ function CreateProfilePage() {
             </div>
             <div className="form-group">
               <label>Caste:</label>
-              <input name="caste" value={profile.caste} onChange={handleChange} placeholder="Enter your caste" />
+              <select name="caste" value={profile.caste} onChange={handleChange}>
+                <option value="">Select Caste</option>
+                <option value="brahmin">Brahmin</option>
+                <option value="kshatriya">Kshatriya</option>
+                <option value="vaishya">Vaishya</option>
+                <option value="shudra">Shudra</option>
+                <option value="chettiar">Chettiar</option>
+                <option value="mudaliar">Mudaliar</option>
+                <option value="naidu">Naidu</option>
+                <option value="reddy">Reddy</option>
+              </select>
             </div>
             <div className="form-group">
               <label>Sub Caste:</label>
-              <input name="subcaste" value={profile.subcaste} onChange={handleChange} placeholder="Enter your sub caste" />
+              <select name="subcaste" value={profile.subcaste} onChange={handleChange}>
+                <option value="">Select Sub Caste</option>
+                <option value="arivu">Arivu</option>
+                <option value="devanga">Devanga</option>
+                <option value="gowda">Gowda</option>
+                <option value="other">Other</option>
+              </select>
             </div>
             <div className="form-group">
               <label>Gothram:</label>
-              <input name="gothram" value={profile.gothram} onChange={handleChange} placeholder="Enter your gothram" />
+              <select name="gothram" value={profile.gothram} onChange={handleChange}>
+                <option value="">Select Gothram</option>
+                <option value="agastya">Agastya</option>
+                <option value="bharadwaja">Bharadwaja</option>
+                <option value="bhrigu">Bhrigu</option>
+                <option value="gautama">Gautama</option>
+                <option value="kashyapa">Kashyapa</option>
+                <option value="kaundinya">Kaundinya</option>
+                <option value="vasishtha">Vasishtha</option>
+                <option value="vishwamitra">Vishwamitra</option>
+              </select>
             </div>
             <div className="form-group">
               <label>Kulam:</label>
-              <input name="kulam" value={profile.kulam} onChange={handleChange} placeholder="Enter your kulam" />
+              <select name="kulam" value={profile.kulam} onChange={handleChange}>
+                <option value="">Select Kulam</option>
+                <option value="brahmin">Brahmin</option>
+                <option value="kshatriya">Kshatriya</option>
+                <option value="vaishya">Vaishya</option>
+                <option value="shudra">Shudra</option>
+              </select>
             </div>
             <div className="form-group">
               <label>Dosham:</label>
@@ -335,6 +428,26 @@ function CreateProfilePage() {
               <label>Citizenship:</label>
               <input name="citizenship" value={profile.citizenship} onChange={handleChange} placeholder="Your citizenship" />
             </div>
+            <div className="form-group">
+              <label>Birth Place:</label>
+              <select name="birthPlace" value={profile.birthPlace} onChange={handleChange}>
+                <option value="">Select Birth Place</option>
+                <option value="chennai">Chennai</option>
+                <option value="bangalore">Bangalore</option>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="hyderabad">Hyderabad</option>
+                <option value="kolkata">Kolkata</option>
+                <option value="pune">Pune</option>
+                <option value="jaipur">Jaipur</option>
+                <option value="lucknow">Lucknow</option>
+                <option value="chandigarh">Chandigarh</option>
+                <option value="coimbatore">Coimbatore</option>
+                <option value="kochi">Kochi</option>
+                <option value="ahmedabad">Ahmedabad</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
           </div>
         );
       
@@ -344,7 +457,30 @@ function CreateProfilePage() {
             <h3><i className="fas fa-male"></i> Physical Details</h3>
             <div className="form-group">
               <label>Height:</label>
-              <input name="height" value={profile.height} onChange={handleChange} placeholder="e.g., 5'6&quot;" />
+              <select name="height" value={profile.height} onChange={handleChange}>
+                <option value="">Select Height</option>
+                <option value="4.6">4'6"</option>
+                <option value="4.7">4'7"</option>
+                <option value="4.8">4'8"</option>
+                <option value="4.9">4'9"</option>
+                <option value="4.10">4'10"</option>
+                <option value="4.11">4'11"</option>
+                <option value="5.0">5'0"</option>
+                <option value="5.1">5'1"</option>
+                <option value="5.2">5'2"</option>
+                <option value="5.3">5'3"</option>
+                <option value="5.4">5'4"</option>
+                <option value="5.5">5'5"</option>
+                <option value="5.6">5'6"</option>
+                <option value="5.7">5'7"</option>
+                <option value="5.8">5'8"</option>
+                <option value="5.9">5'9"</option>
+                <option value="5.10">5'10"</option>
+                <option value="5.11">5'11"</option>
+                <option value="6.0">6'0"</option>
+                <option value="6.1">6'1"</option>
+                <option value="6.2">6'2"</option>
+              </select>
             </div>
             <div className="form-group">
               <label>Weight:</label>
@@ -501,16 +637,33 @@ function CreateProfilePage() {
               <input name="birthTime" value={profile.birthTime} onChange={handleChange} placeholder="HH:MM (24-hour format)" />
             </div>
             <div className="form-group">
-              <label>Birth Place:</label>
-              <input name="birthPlace" value={profile.birthPlace} onChange={handleChange} placeholder="City where you were born" />
-            </div>
-            <div className="form-group">
               <label>Raasi:</label>
-              <input name="raasi" value={profile.raasi} onChange={handleChange} placeholder="Your zodiac sign" />
+              <select name="raasi" value={profile.raasi} onChange={handleChange}>
+                <option value="">Select Raasi</option>
+                <option value="aries">Aries</option>
+                <option value="taurus">Taurus</option>
+                <option value="gemini">Gemini</option>
+                <option value="cancer">Cancer</option>
+                <option value="leo">Leo</option>
+                <option value="virgo">Virgo</option>
+                <option value="libra">Libra</option>
+                <option value="scorpio">Scorpio</option>
+                <option value="sagittarius">Sagittarius</option>
+                <option value="capricorn">Capricorn</option>
+                <option value="aquarius">Aquarius</option>
+                <option value="pisces">Pisces</option>
+              </select>
             </div>
             <div className="form-group">
               <label>Natchathiram:</label>
-              <input name="natchathiram" value={profile.natchathiram} onChange={handleChange} placeholder="Your star sign" />
+              <select name="natchathiram" value={profile.natchathiram} onChange={handleChange} disabled={!profile.raasi}>
+                <option value="">Select Natchathiram</option>
+                {profile.raasi && raasisNatchathirams[profile.raasi] && 
+                  raasisNatchathirams[profile.raasi].map((natch, i) => (
+                    <option key={i} value={natch}>{natch}</option>
+                  ))
+                }
+              </select>
             </div>
             <div className="form-group">
               <label>Manglik:</label>
@@ -581,8 +734,10 @@ function CreateProfilePage() {
   };
 
   return (
-    <div className="page-container fade-in">
-      <h2><i className="fas fa-user-plus"></i> Create Profile</h2>
+    <div className="page-with-background">
+      <div className="page-content">
+        <div className="page-container fade-in">
+          <h2><i className="fas fa-user-plus"></i> Create Profile</h2>
  
 
       {renderStepIndicator()}
@@ -607,6 +762,8 @@ function CreateProfilePage() {
             <i className="fas fa-check"></i> Create Profile
           </button>
         )}
+        </div>
+        </div>
       </div>
     </div>
   );

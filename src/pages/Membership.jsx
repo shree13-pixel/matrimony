@@ -1,8 +1,11 @@
 import React from 'react';
+import "../styles/pageBackground.css";
 
 const Membership = () => {
   return (
-    <div className="page-container fade-in">
+    <div className="page-with-background">
+      <div className="page-content">
+        <div className="page-container fade-in">
       <h1>Membership Plans</h1>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
@@ -55,6 +58,8 @@ const Membership = () => {
             Choose VIP
           </button>
         </div>
+      </div>
+      </div>
       </div>
     </div>
   );

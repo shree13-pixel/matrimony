@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "../../styles/pageBackground.css";
 
 export default function ProfileCard({ profile }) {
   return (

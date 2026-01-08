@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/pageBackground.css";
 
 function ProfileDetails() {
   const [profile, setProfile] = useState(null);
@@ -17,9 +18,13 @@ function ProfileDetails() {
 
   if (!profile) {
     return (
-      <div className="page-container fade-in">
-        <div className="card">
-          <p className="text-center">Loading profile...</p>
+      <div className="page-with-background">
+        <div className="page-content">
+          <div className="page-container fade-in">
+            <div className="card">
+              <p className="text-center">Loading profile...</p>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -40,8 +45,10 @@ function ProfileDetails() {
   const age = calculateAge();
 
   return (
-    <div className="page-container fade-in">
-      <h2><i className="fas fa-user-circle"></i> Profile Details</h2>
+    <div className="page-with-background">
+      <div className="page-content">
+        <div className="page-container fade-in">
+          <h2><i className="fas fa-user-circle"></i> Profile Details</h2>
 
       <div className="profile-details-container">
         {/* Photo Gallery Section */}
@@ -75,6 +82,7 @@ function ProfileDetails() {
             </div>
           )}
         </div>
+    </div>
 
         {/* Profile Information Sections */}
         <div className="profile-info-sections">
@@ -347,6 +355,7 @@ function ProfileDetails() {
         >
           <i className="fas fa-users"></i> View Matches
         </button>
+        </div>
         </div>
         </div>
       </div>

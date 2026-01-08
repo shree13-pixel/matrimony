@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "../styles/pageBackground.css";
 
 function AadharVerify() {
   const [aadharLastFour, setAadharLastFour] = useState("");
@@ -45,7 +46,9 @@ function AadharVerify() {
   };
 
   return (
-    <div className="page-container fade-in">
+    <div className="page-with-background">
+      <div className="page-content">
+        <div className="page-container fade-in">
       <h2><i className="fas fa-id-card"></i> Aadhar Verification</h2>
 
       <div className="card">
@@ -121,6 +124,8 @@ function AadharVerify() {
             </div>
           </>
         )}
+      </div>
+      </div>
       </div>
     </div>
   );

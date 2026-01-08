@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import "../styles/pageBackground.css";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -31,7 +32,9 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="page-container fade-in">
+    <div className="page-with-background">
+      <div className="page-content">
+        <div className="page-container fade-in">
       <h1>Create Your Account</h1>
 
       <div className="card" style={{ maxWidth: '500px', margin: '0 auto' }}>
@@ -106,6 +109,8 @@ export default function RegisterPage() {
         <div style={{ textAlign: 'center', marginTop: '1rem' }}>
           <span>Already have an account? </span>
           <Link to="/login" style={{ color: 'var(--primary-color)' }}>Login here</Link>
+        </div>
+        </div>
         </div>
       </div>
     </div>

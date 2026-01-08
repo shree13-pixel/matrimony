@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "../styles/pageBackground.css";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -30,8 +31,6 @@ export default function LoginPage() {
       setErrors({ ...errors, [name]: '' });
     }
   };
-
-  
 
   const validateRegisterForm = () => {
     const newErrors = {};
@@ -118,25 +117,27 @@ const handleAadharChange = (e) => {
     setVerificationLoading(false);
   };
   return (
-    <div className="page-container fade-in">
-      <h2><i className="fas fa-user-plus"></i> Register</h2>
+    <div className="page-with-background">
+      <div className="page-content">
+        <div className="page-container fade-in">
+          <h2><i className="fas fa-user-plus"></i> Register</h2>
 
-      <div className="card">
-        {errors.general && (
-          <div className="error-message" style={{ marginBottom: '1rem', textAlign: 'center' }}>
-            {errors.general}
-          </div>
-        )}
+          <div className="card">
+            {errors.general && (
+              <div className="error-message" style={{ marginBottom: '1rem', textAlign: 'center' }}>
+                {errors.general}
+              </div>
+            )}
 
-        {/* Registration Form */}
-        <>
-            <p className="text-center mb-3" style={{ color: 'var(--text-color)' }}>
-              Create your account to find your perfect match
-            </p>
+            {/* Registration Form */}
+            <>
+              <p className="text-center mb-3" style={{ color: 'var(--text-color)' }}>
+                Create your account to find your perfect match
+              </p>
 
-            
-            <div className="form-group">
-              <label><i className="fas fa-user"></i> Full Name:</label>
+              
+              <div className="form-group">
+                <label><i className="fas fa-user"></i> Full Name:</label>
               <input
                 type="text"
                 name="name"
@@ -327,13 +328,15 @@ const handleAadharChange = (e) => {
               {loading ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-user-plus"></i>}
               {loading ? ' Registering...' : ' Register'}
             </button>
-        </>
-        
+            </>
+            
 
-        <div className="text-center mt-3">
-          <small style={{ color: 'var(--text-color)', opacity: 0.7 }}>
-            <i className="fas fa-shield-alt"></i> Your information is secure and encrypted
-          </small>
+            <div className="text-center mt-3">
+              <small style={{ color: 'var(--text-color)', opacity: 0.7 }}>
+                <i className="fas fa-shield-alt"></i> Your information is secure and encrypted
+              </small>
+            </div>
+          </div>
         </div>
       </div>
     </div>

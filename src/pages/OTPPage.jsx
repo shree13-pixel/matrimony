@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/pageBackground.css";
 
 export default function OTPPage() {
   const [otp, setOtp] = useState("");
@@ -15,7 +16,9 @@ export default function OTPPage() {
   };
 
   return (
-    <div className="page-container fade-in">
+    <div className="page-with-background">
+      <div className="page-content">
+        <div className="page-container fade-in">
       <h2><i className="fas fa-key"></i> OTP Verification</h2>
 
       <div className="card">
@@ -56,7 +59,9 @@ export default function OTPPage() {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+      </div>
+      </div>
   );
 }
 

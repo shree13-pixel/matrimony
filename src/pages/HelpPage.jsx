@@ -1,6 +1,10 @@
+import "../styles/pageBackground.css";
+
 export default function HelpPage() {
   return (
-    <div className="page-container fade-in">
+    <div className="page-with-background">
+      <div className="page-content">
+        <div className="page-container fade-in">
       <h2><i className="fas fa-question-circle"></i> Help & Support</h2>
 
       <div className="card">
@@ -46,6 +50,8 @@ export default function HelpPage() {
             <div><i className="fas fa-clock"></i> Support Hours: 9 AM - 9 PM IST</div>
           </div>
         </div>
+      </div>
+      </div>
       </div>
     </div>
   );

@@ -1,8 +1,11 @@
 import React from 'react';
+import "../styles/pageBackground.css";
 
 const About = () => {
   return (
-    <div className="page-container fade-in">
+    <div className="page-with-background">
+      <div className="page-content">
+        <div className="page-container fade-in">
       <h1>About Eshama Matrimony</h1>
       <div className="card">
         <h3>Our Story</h3>
@@ -26,6 +29,8 @@ const About = () => {
           <li>Dedicated customer support</li>
           <li>Cultural sensitivity and traditional values</li>
         </ul>
+      </div>
+      </div>
       </div>
     </div>
   );
