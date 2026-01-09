@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/pageBackground.css";
 
+
 function CreateProfilePage() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+
+
   const [profile, setProfile] = useState({
 
     profileFor: '',
@@ -146,7 +150,27 @@ function CreateProfilePage() {
   const submitProfile = () => {
     localStorage.setItem("profile", JSON.stringify(profile));
     navigate("/profile-details");
+    setShowNotificationPopup(true);
   };
+  const requestNotificationPermission = async () => {
+  if (!("Notification" in window)) {
+    alert("Browser does not support notifications");
+    return;
+  }
+
+  const permission = await Notification.requestPermission();
+
+  if (permission === "granted") {
+    new Notification("🎉 Notifications Enabled!", {
+      body: "You will receive match updates & messages"
+    });
+  }
+};
+
+const handleNotificationLater = () => {
+  console.log("User chose to enable notifications later.");
+};
+
 
   const renderStepIndicator = () => {
     const steps = [
@@ -762,6 +786,36 @@ function CreateProfilePage() {
             <i className="fas fa-check"></i> Create Profile
           </button>
         )}
+        {showNotificationPopup && (
+  <div className="notification-modal">
+    <div className="notification-box">
+      <h3>Enable Notifications?</h3>
+      <p>Get match alerts, messages & profile views</p>
+
+      <button
+        className="btn btn-primary"
+        onClick={() => {
+          requestNotificationPermission();
+          setShowNotificationPopup(false);
+          navigate("/profile-details");
+        }}
+      >
+        Allow
+      </button>
+
+      <button
+        className="btn btn-outline"
+        onClick={() => {
+          setShowNotificationPopup(false);
+          navigate("/profile-details");
+        }}
+      >
+        Ask Me Later
+      </button>
+    </div>
+  </div>
+)}
+
         </div>
         </div>
       </div>

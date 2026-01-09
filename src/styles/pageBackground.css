@@ -29,3 +29,9 @@
   min-height: 100vh;
 }
 
+/*.page-container {
+  padding-right: 340px; /* sidebar width + spacing */
+
+.need-help {
+  right: 340px;
+}

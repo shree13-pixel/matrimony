@@ -6,10 +6,12 @@ function ProfileDetails() {
   const [profile, setProfile] = useState(null);
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [formData, setFormData] = useState({
+  education: "",
+  stream: "", // Added stream
   workStatus: "",
   profession: "",
   company: "",
-  salary: ""
+  salary: "",
 });
 
   const navigate = useNavigate();
@@ -22,7 +24,30 @@ function ProfileDetails() {
       navigate("/create-profile");
     }
   }, [navigate]);
+  useEffect(() => {
+  if (profile) {
+    setFormData({
+      education: profile.education || "",
+      workStatus: profile.workStatus || "",
+      profession: profile.profession || "",
+      company: profile.company || "",
+      salary: profile.salary || ""
+    });
+  }
+}, [profile]);
 
+useEffect(() => {
+  if (profile) {
+    setFormData({
+      education: profile.education || "",
+      stream: profile.stream || "", // Added stream
+      workStatus: profile.workStatus || "",
+      profession: profile.profession || "",
+      company: profile.company || "",
+      salary: profile.salary || ""
+    });
+  }
+}, [profile]);
   if (!profile) {
     return (
       <div className="page-with-background">
@@ -44,15 +69,21 @@ function ProfileDetails() {
     [name]: value
   }));
 
-  // Not working → clear company & salary
+  // If Not Working → clear job fields
   if (name === "workStatus" && value === "not_working") {
     setFormData(prev => ({
       ...prev,
+      profession: "",
       company: "",
       salary: ""
     }));
   }
 };
+// Add 'stream' to your initial state
+
+
+// Update the useEffect to include stream
+
 
 
   const calculateAge = () => {
@@ -185,26 +216,88 @@ function ProfileDetails() {
             </div>
           </div>
 {/* Education & Professional */}
-          <div className="profile-section">
+          
+{/* Education & Professional */}
+<div className="profile-section">
+  <h3>
+    <i className="fas fa-graduation-cap"></i> Education Details
+  </h3>
+
+  {/* Highest Education Dropdown */}
+  <div className="form-group">
+    <label>Highest Education</label>
+    <select
+      name="education"
+      value={formData.education}
+      onChange={handleChange}
+    >
+      <option value="">Select Education</option>
+      <optgroup label="Engineering/Technology">
+        <option value="BE">B.E (Bachelor of Engineering)</option>
+        <option value="BTech">B.Tech (Bachelor of Technology)</option>
+        <option value="ME">M.E (Master of Engineering)</option>
+        <option value="MTech">M.Tech (Master of Technology)</option>
+      </optgroup>
+      <optgroup label="Management/Computer">
+        <option value="MBA">MBA</option>
+        <option value="MCA">MCA</option>
+        <option value="BCA">BCA</option>
+      </optgroup>
+      <optgroup label="Medical/Science/Others">
+        <option value="MBBS">MBBS</option>
+        <option value="MD">MD</option>
+        <option value="BSc">B.Sc</option>
+        <option value="MSc">M.Sc</option>
+        <option value="BCom">B.Com</option>
+        <option value="PhD">Ph.D</option>
+        <option value="Diploma">Diploma</option>
+      </optgroup>    </select>
+  </div>
+
+  {/* Stream Dropdown */}
+  <div className="form-group">
+    <label>Stream / Specialization</label>
+    <select
+      name="stream"      value={formData.stream}
+      onChange={handleChange}
+    >
+      <option value="">Select Stream</option>
+      <option value="Computer Science">Computer Science</option>
+      <option value="Information Technology">Information Technology</option>
+      <option value="Electronics & Communication">Electronics & Communication</option>      <option value="Mechanical">Mechanical Engineering</option>
+      <option value="Civil">Civil Engineering</option>
+      <option value="Electrical">Electrical Engineering</option>
+      <option value="Finance">Finance</option>
+      <option value="Marketing">Marketing</option>
+      <option value="Human Resources">Human Resources</option>
+      <option value="General Medicine">General Medicine</option>
+      <option value="Science">Science</option>
+      <option value="Commerce">Commerce</option>
+      <option value="Arts">Arts</option>
+    </select>
+  </div>
+
+  <hr style={{ margin: '20px 0', border: '0.1px solid #eee' }} />
+  
   <h3>
     <i className="fas fa-briefcase"></i> Professional Details
   </h3>
 
-  {/* Working Status Dropdown */}
+  {/* Work Status */}
   <div className="form-group">
-    <label>Working Status</label>
+    <label>Work Status</label>
     <select
       name="workStatus"
       value={formData.workStatus}
       onChange={handleChange}
     >
-      <option value="">Select</option>
+      <option value="">Select Status</option>
       <option value="working">Working</option>
       <option value="not_working">Not Working</option>
     </select>
   </div>
 
-  {/* Profession / Job Title - Always Enabled */}
+  {/* Profession */}
   <div className="form-group">
     <label>Profession / Job Title</label>
     <input
@@ -212,11 +305,12 @@ function ProfileDetails() {
       name="profession"
       value={formData.profession}
       onChange={handleChange}
-      placeholder="Eg: Software Engineer"
+      placeholder="Your occupation or job title"
+      disabled={formData.workStatus === "not_working"}
     />
   </div>
 
-  {/* Company - Disabled if Not Working */}
+  {/* Company */}
   <div className="form-group">
     <label>Company</label>
     <input
@@ -224,11 +318,12 @@ function ProfileDetails() {
       name="company"
       value={formData.company}
       onChange={handleChange}
+      placeholder="Company name"
       disabled={formData.workStatus === "not_working"}
     />
   </div>
 
-  {/* Salary - Disabled if Not Working */}
+  {/* Salary */}
   <div className="form-group">
     <label>Annual Income</label>
     <input
@@ -236,6 +331,7 @@ function ProfileDetails() {
       name="salary"
       value={formData.salary}
       onChange={handleChange}
+      placeholder="Eg: 600000"
       disabled={formData.workStatus === "not_working"}
     />
   </div>
