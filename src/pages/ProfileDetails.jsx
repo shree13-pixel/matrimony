@@ -5,6 +5,13 @@ import "../styles/pageBackground.css";
 function ProfileDetails() {
   const [profile, setProfile] = useState(null);
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
+  const [formData, setFormData] = useState({
+  workStatus: "",
+  profession: "",
+  company: "",
+  salary: ""
+});
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +36,24 @@ function ProfileDetails() {
       </div>
     );
   }
+  const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  setFormData(prev => ({
+    ...prev,
+    [name]: value
+  }));
+
+  // Not working → clear company & salary
+  if (name === "workStatus" && value === "not_working") {
+    setFormData(prev => ({
+      ...prev,
+      company: "",
+      salary: ""
+    }));
+  }
+};
+
 
   const calculateAge = () => {
     if (!profile.dob?.day || !profile.dob?.month || !profile.dob?.year) return null;
@@ -161,34 +186,61 @@ function ProfileDetails() {
           </div>
 {/* Education & Professional */}
           <div className="profile-section">
-            <h3><i className="fas fa-graduation-cap"></i> Education & Professional</h3>
-            <div className="info-grid">
-              <div className="info-item">
-                <label>Highest Education:</label>
-                <span>{profile.education || 'Not specified'}</span>
-              </div>
-              <div className="info-item">
-                <label>Education Details:</label>
-                <span>{profile.educationDetails || 'Not specified'}</span>
-              </div>
-              <div className="info-item">
-                <label>Profession:</label>
-                <span>{profile.profession || 'Not specified'}</span>
-              </div>
-              <div className="info-item">
-                <label>Company:</label>
-                <span>{profile.company || 'Not specified'}</span>
-              </div>
-              <div className="info-item">
-                <label>Annual Income:</label>
-                <span>{profile.income || 'Not specified'}</span>
-              </div>
-              <div className="info-item">
-                <label>Work Location:</label>
-                <span>{profile.workLocation || 'Not specified'}</span>
-              </div>
-            </div>
-          </div>
+  <h3>
+    <i className="fas fa-briefcase"></i> Professional Details
+  </h3>
+
+  {/* Working Status Dropdown */}
+  <div className="form-group">
+    <label>Working Status</label>
+    <select
+      name="workStatus"
+      value={formData.workStatus}
+      onChange={handleChange}
+    >
+      <option value="">Select</option>
+      <option value="working">Working</option>
+      <option value="not_working">Not Working</option>
+    </select>
+  </div>
+
+  {/* Profession / Job Title - Always Enabled */}
+  <div className="form-group">
+    <label>Profession / Job Title</label>
+    <input
+      type="text"
+      name="profession"
+      value={formData.profession}
+      onChange={handleChange}
+      placeholder="Eg: Software Engineer"
+    />
+  </div>
+
+  {/* Company - Disabled if Not Working */}
+  <div className="form-group">
+    <label>Company</label>
+    <input
+      type="text"
+      name="company"
+      value={formData.company}
+      onChange={handleChange}
+      disabled={formData.workStatus === "not_working"}
+    />
+  </div>
+
+  {/* Salary - Disabled if Not Working */}
+  <div className="form-group">
+    <label>Annual Income</label>
+    <input
+      type="number"
+      name="salary"
+      value={formData.salary}
+      onChange={handleChange}
+      disabled={formData.workStatus === "not_working"}
+    />
+  </div>
+</div>
+
           {/* Religious Details */}
           <div className="profile-section">
             <h3><i className="fas fa-pray"></i> Religious Details</h3>

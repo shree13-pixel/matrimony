@@ -26,6 +26,16 @@ export default function LoginPage() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+ if (name === "email") {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!value) {
+      setErrors(prev => ({ ...prev, email: "Email is required" }));
+    } else if (!emailRegex.test(value)) {
+      setErrors(prev => ({ ...prev, email: "Enter a valid email address" }));
+    } else {
+      setErrors(prev => ({ ...prev, email: "" }));
+    }
+  }
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
@@ -74,6 +84,7 @@ export default function LoginPage() {
       setErrors({ general: result.error || 'Registration failed' });
     }
   };
+  
 const handleAadharChange = (e) => {
     const { name, value } = e.target;
     setAadharData({ ...aadharData, [name]: value });
