@@ -132,7 +132,7 @@ export default function Home() {
       {/* Features Section */}
       <section className="features-section">
         <div className="container">
-          <h2>Why Choose Eshama Matrimony?</h2>
+          <h2>Why Choose Eshanamma Matrimony?</h2>
           <div className="features-grid">
             <div className="feature-card">
               <div className="feature-icon">

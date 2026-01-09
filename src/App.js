@@ -9,7 +9,7 @@ import ProfileList from "./components/matchmaking/ProfileList";
 import LoginPage from "./pages/LoginPage";
 import HelpPage from "./pages/HelpPage";
 import ProfileDetails from "./pages/ProfileDetails";
-import About from "./pages/About";
+//import About from "./pages/About";
 import Membership from "./pages/Membership";
 import Contact from "./pages/Contact";
 import Chatbot from "./components/Chatbot/chatbot";
@@ -25,7 +25,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            {/* <Route path="/about" element={<About />} /> */}
             <Route path="/membership" element={<Membership />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/chatbot" element={<Chatbot/>} />

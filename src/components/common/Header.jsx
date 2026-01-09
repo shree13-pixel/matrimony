@@ -10,7 +10,7 @@ const Header = () => {
         <div className="info-content">
           <div className="contact-info">
             <span><i className="fas fa-phone"></i> +91 98765 43210</span>
-            <span><i className="fas fa-envelope"></i> info@eshamatrimony.com</span>
+            <span><i className="fas fa-envelope"></i> info@eshanamma matrimony.com</span>
           </div>
           <div className="social-icons">
             <a href="#" className="social-link"><i className="fab fa-facebook-f"></i></a>
@@ -27,14 +27,14 @@ const Header = () => {
           {/* Logo */}
           <div className="logo">
             <Link to="/" className="logo-link">
-              <span className="logo-text">Eshama Matrimony</span>
+              <span className="logo-text">Eshanamma Matrimony</span>
             </Link>
           </div>
 
           {/* Navigation Menu */}
           <nav className="nav-menu">
             <Link to="/" className="nav-link">Home</Link>
-            <Link to="/about" className="nav-link">About Us</Link>
+            {/* <Link to="/about" className="nav-link">About Us</Link>} */}
             <Link to="/membership" className="nav-link">Membership Plan</Link>
             <Link to="/contact" className="nav-link">Contact Us</Link>
           </nav>
