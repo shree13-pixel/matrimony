@@ -41,6 +41,8 @@ function CreateProfilePage() {
 
     education: '',
     educationDetails: '',
+    stream:"",
+    workStatus:"",
     profession: '',
     company: '',
     income: '',
@@ -85,6 +87,18 @@ function CreateProfilePage() {
   });
 
   // Raasi to Natchathiram mapping
+   const countries=[ "India", "United States", "United Arab Emirates", "United Kingdom", "Australia", 
+  "Canada", "Singapore", "Malaysia", "Saudi Arabia", "Qatar", "Kuwait", "Oman"
+];
+
+const indianStates = [
+  "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", 
+  "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", 
+  "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", 
+  "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", 
+  "Uttarakhand", "West Bengal", "Andaman and Nicobar Islands", "Chandigarh", 
+  "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Jammu and Kashmir", "Ladakh", "Lakshadweep", "Puducherry"
+];
   const raasisNatchathirams = {
     'aries': ['Ashwini', 'Bharani', 'Krittika'],
     'taurus': ['Rohini', 'Mrigashira', 'Ardra'],
@@ -380,54 +394,161 @@ const handleNotificationLater = () => {
             </div>
           </div>
         );
-        case 4:
-        return (
-          <div className="form-section">
-            <h3><i className="fas fa-graduation-cap"></i> Education Details</h3>
-            <div className="form-group">
-              <label>Highest Education:</label>
-              <select name="education" value={profile.education} onChange={handleChange}>
-                <option value="">Select Education</option>
-                <option value="high-school">High School</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="bachelors">Bachelor's Degree</option>
-                <option value="masters">Master's Degree</option>
-                <option value="phd">PhD</option>
-                <option value="doctorate">Doctorate</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Education Details:</label>
-              <input name="educationDetails" value={profile.educationDetails} onChange={handleChange} placeholder="e.g., B.Tech in Computer Science" />
-            </div>
-            <div className="form-section">
-            <h3><i className="fas fa-briefcase"></i> Professional Details</h3>
-            <div className="form-group">
-              <label>Profession:</label>
-              <input name="profession" value={profile.profession} onChange={handleChange} placeholder="Your occupation or job title" />
-            </div>
-            <div className="form-group">
-              <label>Company:</label>
-              <input name="company" value={profile.company} onChange={handleChange} placeholder="Company name" />
-            </div>
-            <div className="form-group">
-              <label>Annual Income:</label>
-              <select name="income" value={profile.income} onChange={handleChange}>
-                <option value="">Select Income Range</option>
-                <option value="under-2">Under ₹2 Lakhs</option>
-                <option value="2-5">₹2-5 Lakhs</option>
-                <option value="5-10">₹5-10 Lakhs</option>
-                <option value="10-20">₹10-20 Lakhs</option>
-                <option value="above-20">Above ₹20 Lakhs</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Work Location:</label>
-              <input name="workLocation" value={profile.workLocation} onChange={handleChange} placeholder="City where you work" />
-            </div>
-          </div>
-          </div>
-        );
+       case 4:
+  return (
+    <div className="form-section">
+      <h3>
+        <i className="fas fa-graduation-cap"></i> Education Details
+      </h3>
+
+      {/* Highest Education */}
+      <div className="form-group">
+        <label>Highest Education</label>
+        <select
+          name="education"
+          value={profile.education}
+          onChange={handleChange}
+        >
+          <option value="">Select Education</option>
+          <option value="high-school">High School</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="bachelors">Bachelor's Degree</option>
+          <option value="masters">Master's Degree</option>
+          <option value="phd">PhD</option>
+          <option value="doctorate">Doctorate</option>
+        </select>
+      </div>
+
+      {/* Field of Study */}
+      <div className="form-group">
+        <label>Field of Study</label>
+        <select
+          name="educationdetails"
+          value={profile.educationdetails}
+          onChange={handleChange}
+        >
+          <option value="">Select Field</option>
+
+          <optgroup label="Engineering / Technology">
+            <option value="BE">B.E</option>
+            <option value="BTech">B.Tech</option>
+            <option value="ME">M.E</option>
+            <option value="MTech">M.Tech</option>
+          </optgroup>
+
+          <optgroup label="Management / Computer">
+            <option value="MBA">MBA</option>
+            <option value="MCA">MCA</option>
+            <option value="BCA">BCA</option>
+          </optgroup>
+
+          <optgroup label="Medical / Science / Others">
+            <option value="MBBS">MBBS</option>
+            <option value="MD">MD</option>
+            <option value="BSc">B.Sc</option>
+            <option value="MSc">M.Sc</option>
+            <option value="BCom">B.Com</option>
+            <option value="PhD">Ph.D</option>
+            <option value="Diploma">Diploma</option>
+          </optgroup>
+        </select>
+      </div>
+
+      {/* Stream */}
+      <div className="form-group">
+        <label>Stream / Specialization</label>
+        <select
+          name="stream"
+          value={profile.stream}
+          onChange={handleChange}
+        >
+          <option value="">Select Stream</option>
+          <option value="Computer Science">Computer Science</option>
+          <option value="Information Technology">Information Technology</option>
+          <option value="Mechanical">Mechanical</option>
+          <option value="Civil">Civil</option>
+          <option value="Electrical">Electrical</option>
+          <option value="Finance">Finance</option>
+          <option value="Marketing">Marketing</option>
+          <option value="HR">Human Resources</option>
+        </select>
+      </div>
+
+      <hr />
+
+      <h3>
+        <i className="fas fa-briefcase"></i> Professional Details
+      </h3>
+
+      {/* Work Status */}
+      <div className="form-group">
+        <label>Work Status</label>
+        <select
+          name="workStatus"
+          value={profile.workStatus}
+          onChange={handleChange}
+        >
+          <option value="">Select Status</option>
+          <option value="working">Working</option>
+          <option value="not_working">Not Working</option>
+        </select>
+      </div>
+
+      {/* Profession */}
+      <div className="form-group">
+        <label>Profession</label>
+        <input
+          type="text"
+          name="profession"
+          value={profile.profession}
+          onChange={handleChange}
+          disabled={profile.workStatus === "not_working"}
+        />
+      </div>
+
+      {/* Company */}
+      <div className="form-group">
+        <label>Company</label>
+        <input
+          type="text"
+          name="company"
+          value={profile.company}
+          onChange={handleChange}
+          disabled={profile.workStatus === "not_working"}
+        />
+      </div>
+
+      {/* Income */}
+      <div className="form-group">
+        <label>Annual Income</label>
+        <select
+          name="income"
+          value={profile.income}
+          onChange={handleChange}
+        >
+          <option value="">Select Income</option>
+          <option value="under-2">Under ₹2 Lakhs</option>
+          <option value="2-5">₹2–5 Lakhs</option>
+          <option value="5-10">₹5–10 Lakhs</option>
+          <option value="10-20">₹10–20 Lakhs</option>
+          <option value="above-20">Above ₹20 Lakhs</option>
+        </select>
+      </div>
+
+      {/* Work Location */}
+      <div className="form-group">
+        <label>Work Location</label>
+        <input
+          type="text"
+          name="workLocation"
+          value={profile.workLocation}
+          onChange={handleChange}
+          disabled={profile.workStatus === "not_working"}
+        />
+      </div>
+    </div>
+  );
+
       case 5:
         return (
           <div className="form-section">
@@ -440,14 +561,37 @@ const handleNotificationLater = () => {
               <label>City:</label>
               <input name="city" value={profile.city} onChange={handleChange} placeholder="Enter your city" />
             </div>
-            <div className="form-group">
-              <label>State:</label>
-              <input name="state" value={profile.state} onChange={handleChange} placeholder="Enter your state" />
-            </div>
-            <div className="form-group">
-              <label>Country:</label>
-              <input name="country" value={profile.country} onChange={handleChange} placeholder="Enter your country" />
-            </div>
+           <div className="form-group">
+    <label style={{ fontWeight: '600' }}>State:</label>
+    <select
+      name="state"
+      value={profile.state || ""}
+      onChange={handleChange}
+      className="form-control"
+    >
+      <option value="">Select State</option>
+      {indianStates.map((state) => (
+        <option key={state} value={state}>{state}</option>
+      ))}
+    </select>
+  </div>
+
+  {/* Country Dropdown */}
+  <div className="form-group">
+    <label style={{ fontWeight: '600' }}>Country:</label>
+    <select
+      name="country"
+      value={profile.country || ""}
+      onChange={handleChange}
+      className="form-control"
+    >
+      <option value="">Select Country</option>
+      {countries.map((country) => (
+        <option key={country} value={country}>{country}</option>
+      ))}
+    </select>
+  </div>
+
             <div className="form-group">
               <label>Citizenship:</label>
               <input name="citizenship" value={profile.citizenship} onChange={handleChange} placeholder="Your citizenship" />
@@ -690,7 +834,7 @@ const handleNotificationLater = () => {
               </select>
             </div>
             <div className="form-group">
-              <label>Manglik:</label>
+              <label>Mangal Dosha:</label>
               <select name="manglik" value={profile.manglik} onChange={handleChange}>
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>

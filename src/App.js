@@ -32,7 +32,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/help" element={<HelpPage />} />
             <Route path="/create-profile" element={<CreateProfilePage />} />
-            <Route path="/profile-details" element={<ProfileDetails />} />
+             <Route path="/profile-details" element={<ProfileDetails />} /> 
             <Route path="/otp" element={<OTPPage />} />
             <Route path="/matches" element={<MatchesPage />} />
              <Route path="/profiles" element={<ProfileList />} />

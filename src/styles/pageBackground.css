@@ -32,6 +32,11 @@
 /*.page-container {
   padding-right: 340px; /* sidebar width + spacing */
 
-.need-help {
-  right: 340px;
+.help-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;     /* 👈 move to left */
+  right: auto;    /* 👈 remove right */
+  z-index: 999;
 }
+

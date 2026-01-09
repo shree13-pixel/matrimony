@@ -9,53 +9,121 @@ function ProfileList() {
   const profile = JSON.parse(localStorage.getItem("profile"));
 
   // Sample matched profiles data
-  const matchedProfiles = [
-    {
-      id: 1,
-      name: "Priya",
-      age: 26,
-      location: "Chennai, Tamil Nadu",
-      photo: null,
-      matchReason: "Shared values, location compatibility, education match",
-      compatibilityScore: 85
-    },
-    {
-      id: 2,
-      name: "Anjali",
-      age: 24,
-      location: "Bangalore, Karnataka",
-      photo: null,
-      matchReason: "Similar career interests and family values",
-      compatibilityScore: 78
-    },
-    {
-      id: 3,
-      name: "Divya",
-      age: 25,
-      location: "Hyderabad, Telangana",
-      photo: null,
-      matchReason: "Compatible interests and life goals",
-      compatibilityScore: 82
-    },
-    {
-      id: 4,
-      name: "Sneha",
-      age: 23,
-      location: "Mumbai, Maharashtra",
-      photo: null,
-      matchReason: "Shared hobbies and cultural preferences",
-      compatibilityScore: 76
-    },
-    {
-      id: 5,
-      name: "Meera",
-      age: 27,
-      location: "Delhi, NCR",
-      photo: null,
-      matchReason: "Similar professional background and lifestyle",
-      compatibilityScore: 80
-    }
-  ];
+ const matchedProfiles = [
+  {
+    id: 1,
+    name: "Priya",
+    age: 26,
+    location: "Chennai, Tamil Nadu",
+    photo: "pic5.webp",
+    profession: "Software Engineer",
+    salary: "12 LPA",
+    status: "Active",
+    matchReason: "Shared values, location compatibility, education match",
+    compatibilityScore: 95
+  },
+  {
+    id: 2,
+    name: "Anjali",    age: 24,
+    location: "Bangalore, Karnataka",
+    photo: "pic4.webp",    profession: "Data Scientist",
+    salary: "18 LPA",
+    status: "Active",
+    matchReason: "Similar career interests and family values",
+    compatibilityScore: 90
+  },
+  {
+    id: 3,
+    name: "Divya",
+    age: 25,
+    location: "Hyderabad, Telangana",
+    photo: "OIP.webp",
+    profession: "Doctor (Pediatrician)",    salary: "15 LPA",
+    status: "Inactive",
+    matchReason: "Compatible interests and life goals",
+    compatibilityScore: 88
+  },
+  {
+    id: 4,
+    name: "Sneha",
+    age: 23,
+    location: "Mumbai, Maharashtra",
+    photo: "pic2.webp",
+    profession: "HR Manager",
+    salary: "8 LPA",    status: "Active",
+    matchReason: "Shared hobbies and cultural preferences",
+    compatibilityScore: 86
+  },
+  {
+    id: 5,
+    name: "Meera",    age: 27,
+    location: "Delhi, NCR",
+    photo: "pic1.jpg",
+    profession: "Chartered Accountant",
+    salary: "20 LPA",
+    status: "Active",    matchReason: "Similar professional background and lifestyle",
+    compatibilityScore: 80
+  },
+  {
+    id: 6,
+    name: "Kavya",
+    age: 25,
+    location: "Coimbatore, Tamil Nadu",
+    photo: "pic5.webp",
+    profession: "Assistant Professor",
+    salary: "7 LPA",
+    status: "Active",
+    matchReason: "Educational background and family values match",
+    compatibilityScore: 78
+  },
+  {
+    id: 7,
+    name: "Riya",
+    age: 24,
+    location: "Pune, Maharashtra",
+    photo: "pic4.webp",
+    profession: "UX Designer",
+    salary: "10 LPA",
+    status: "Inactive",
+    matchReason: "Creative interests and lifestyle compatibility",
+    compatibilityScore: 74
+  },
+  {
+    id: 8,
+    name: "Pooja",
+    age: 28,
+    location: "Ahmedabad, Gujarat",
+    photo: "/pic3.webp",
+    profession: "Business Analyst",
+    salary: "14 LPA",
+    status: "Active",
+    matchReason: "Career goals and maturity level match",
+    compatibilityScore: 71
+  },
+  {
+    id: 9,
+    name: "Ishani",
+    age: 26,
+    location: "Kochi, Kerala",
+    photo: "/pic2.webp",
+    profession: "Civil Engineer",
+    salary: "9 LPA",
+    status: "Active",
+    matchReason: "Cultural compatibility and shared interests",
+    compatibilityScore: 70
+  },
+  {
+    id: 10,    name: "Swati",
+    age: 25,
+    location: "Lucknow, Uttar Pradesh",
+    photo: "/pic1.jpg",
+    profession: "Bank Manager",
+    salary: "11 LPA",
+    status: "Active",
+    matchReason: "Stable profession and family background",
+    compatibilityScore: 73
+  }
+];
 
  return (
   <div style={{ display: "flex", height: "100vh" }}>
