@@ -79,7 +79,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (result.success) {
-      navigate('/profiles');
+      navigate('/create-profile');
     } else {
       setErrors({ general: result.error || 'Registration failed' });
     }

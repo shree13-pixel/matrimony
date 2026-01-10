@@ -117,7 +117,8 @@
 }
 
 .btn-login,
-.btn-register {
+.btn-register
+{
   padding: 10px 20px;
   border-radius: 25px;
   text-decoration: none;
@@ -130,7 +131,8 @@
 }
 
 .btn-login:hover,
-.btn-register:hover {
+.btn-register:hover
+ {
   background: #fff9c4;
   border-color: #fff9c4;
   transform: translateY(-2px);
@@ -183,8 +185,70 @@
   }
 
   .btn-login,
-  .btn-register {
+  .btn-register 
+  .btn-translate{
     width: 100%;
     text-align: center;
   }
+}
+/* Account Section */
+.account {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.account img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #ffeb3b;
+}
+
+.account span {
+  font-weight: 600;
+  font-size: 14px;
+  color: #111827;
+}
+
+/* Dropdown */
+.account-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 2000;
+}
+
+.account-dropdown a,
+.account-dropdown button {
+  padding: 10px 14px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #111827;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.account-dropdown a:hover,
+.account-dropdown button:hover {
+  background: #fff9c4;
+}
+
+.logout-btn {
+  color: #dc2626;
+  font-weight: 600;
+}
+.logout-btn:hover {
+  background: #fef3f2;
 }

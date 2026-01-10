@@ -7,6 +7,13 @@ function Chatbot() {
   const [messages, setMessages] = useState([
     { sender: "bot", text: "Hi 👋 How can I help you with your matchmaking journey?" }
   ]);
+  const recommendedQuestions = [
+    "How to improve my profile?",
+    "What is match readiness score?",
+    "How matches are calculated?",
+    "Is Aadhaar verification safe?",
+    "What are premium benefits?"
+  ];
 
   const sendMessage = () => {
     if (!message.trim()) return;
@@ -81,7 +88,7 @@ function Chatbot() {
             ×
           </button>
         </div>
-
+  
         <div className="chat-body">
           {messages.map((msg, i) => (
             <div key={i} className={`message ${msg.sender}`}>
@@ -91,6 +98,13 @@ function Chatbot() {
             </div>
           ))}
         </div>
+<div className="suggestions">
+  {recommendedQuestions.map((q, i) => (
+    <button key={i} onClick={() => sendMessage(q)}>
+      {q}
+    </button>
+  ))}
+</div>
 
         <div className="chat-footer">
           <input
@@ -110,3 +124,5 @@ function Chatbot() {
 }
 
 export default Chatbot;
+
+

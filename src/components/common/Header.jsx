@@ -1,8 +1,34 @@
 import React from 'react';
+import { useState } from "react";
 import { Link } from 'react-router-dom';
 import './Header.css';
+function LanguageSwitcher() {
+  const [lang, setLang] = useState("en");
 
+  const changeLanguage = (e) => {
+    const selectedLang = e.target.value;
+    setLang(selectedLang);
+    console.log("Language changed to:", selectedLang);
+  };
+  return (
+    <div className="language-switcher">
+      <span className="lang-icon">🌐</span>
+      <select value={lang} onChange={changeLanguage}>
+        <option value="en">English</option>
+        <option value="ta">தமிழ்</option>
+        <option value="hi">हिन्दी</option>
+        <option value="te">తెలుగు</option>
+      </select>
+    </div>
+  );
+}
 const Header = () => {
+  const user = {
+    name: "Prarthana",
+    avatar: "https://i.pravatar.cc/40"
+  };
+  
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       {/* Top Info Bar */}
@@ -40,9 +66,31 @@ const Header = () => {
           </nav>
 
           {/* Action Buttons */}
-          <div className="header-actions">
-            <Link to="/login" className="btn-register">Register</Link>
-          </div>
+          
+<div className="header-actions">
+  <Link to="/login" className="btn-register">Register</Link>
+
+
+
+  <button className="btn-register">Translate <i className="fas fa-globe"></i></button> {/* உங்கள் button */}
+
+  <div
+    className="account"
+    onClick={() => setIsOpen(prev => !prev)}
+  >
+    <img src={user.avatar} alt="profile" />
+    <span>{user.name}</span>
+
+    {isOpen && (
+      <div className="account-dropdown">
+        <Link to="/Dashboard">My Profile</Link>
+        <Link to="/settings">Settings</Link>
+        <button className="logout-btn">Logout</button>
+      </div>
+    )}
+  </div>
+</div>
+
         </div>
       </header>
     </>

@@ -19,6 +19,8 @@ export default function RegisterPage() {
       [e.target.name]: e.target.value
     });
   };
+  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,6 +29,7 @@ export default function RegisterPage() {
       alert('Passwords do not match');
       return;
     }
+   
     // Navigate to mobile verification
     navigate('/mobile-verify');
   };
@@ -101,9 +104,15 @@ export default function RegisterPage() {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-            Register
-          </button>
+         <button
+  type="button"
+  className="btn btn-primary"
+  style={{ width: "100%" }}
+  onClick={() => navigate("/create-profile")}
+>
+  Register
+</button>
+
         </form>
 
         <div style={{ textAlign: 'center', marginTop: '1rem' }}>

@@ -18,34 +18,19 @@ export default function Home() {
   };
 
   const handleLoginSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!loginData.mobile || !loginData.password) {
-      setLoginError('Please enter mobile number and password');
-      return;
-    }
+  e.preventDefault();
 
-    if (loginData.mobile.length !== 10) {
-      setLoginError('Enter valid 10-digit mobile number');
-      return;
-    }
+  // OPTIONAL: loading effect mattum
+  setLoginLoading(true);
+  setLoginError('');
 
-    setLoginLoading(true);
-    setLoginError('');
-    
-    // Simulating login - replace with actual API call
-    try {
-      // In a real app, this would call your authentication API
-      // For now, simulating successful login
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Navigate to profiles page after login
-      navigate('/profiles');
-    } catch (error) {
-      setLoginError('Login failed. Please try again.');
-      setLoginLoading(false);
-    }
-  };
+  // Fake delay (optional)
+  setTimeout(() => {
+    setLoginLoading(false);
+    navigate('/Dashboard');   // ✅ ALWAYS navigate
+  }, 500);
+};
+
 
   return (
     <div className="home-container">

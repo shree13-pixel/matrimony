@@ -14,6 +14,8 @@ import Membership from "./pages/Membership";
 import Contact from "./pages/Contact";
 import Chatbot from "./components/Chatbot/chatbot";
 import Header from "./components/common/Header";
+import Payment from  "./pages/Payment";
+import Dashboard from "./pages/Dashboard";
 import { AuthProvider } from "./context/AuthContext";
 import './index.css';
 
@@ -38,6 +40,8 @@ function App() {
              <Route path="/profiles" element={<ProfileList />} />
              <Route path="/mobile-verify" element={<MobileVerify />} />
              <Route path="/aadhar-verify" element={<AadharVerify />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
           <Chatbot />
         </BrowserRouter>

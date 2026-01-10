@@ -1,7 +1,10 @@
 import React from 'react';
 import "../styles/pageBackground.css";
+import { useNavigate } from "react-router-dom";
 
 const Membership = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="page-with-background">
       <div className="page-content">
@@ -20,9 +23,27 @@ const Membership = () => {
             <li>Basic profile verification</li>
             <li>Email support</li>
           </ul>
-          <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
-            Choose Basic
-          </button>
+          <button
+  onClick={() =>
+    navigate("/payment", {
+      state: { plan: "Basic", price: 499 }
+    })
+  }
+  style={{
+    width: "100%",
+    marginTop: "1rem",
+    padding: "12px",
+    backgroundColor: "#28a745",
+    color: "#fff",
+    border: "none",
+    borderRadius: "6px",
+    fontSize: "16px",
+    cursor: "pointer"
+  }}
+>
+  Choose Basic
+</button>
+
         </div>
 
         <div className="card">
@@ -37,9 +58,27 @@ const Membership = () => {
             <li>Priority matching</li>
             <li>Phone & chat support</li>
           </ul>
-          <button className="btn btn-secondary" style={{ width: '100%', marginTop: '1rem' }}>
-            Choose Premium
-          </button>
+          <button
+  onClick={() =>
+    navigate("/payment", {
+      state: { plan: "premium", price: 999 }
+    })
+  }
+  style={{
+    width: "100%",
+    marginTop: "1rem",
+    padding: "12px",
+    backgroundColor: "#28a745",
+    color: "#fff",
+    border: "none",
+    borderRadius: "6px",
+    fontSize: "16px",
+    cursor: "pointer"
+  }}
+>
+  Choose premium
+</button>
+
         </div>
 
         <div className="card">
@@ -54,9 +93,27 @@ const Membership = () => {
             <li>Exclusive events access</li>
             <li>24/7 dedicated support</li>
           </ul>
-          <button className="btn btn-success" style={{ width: '100%', marginTop: '1rem' }}>
-            Choose VIP
-          </button>
+           <button
+  onClick={() =>
+    navigate("/payment", {
+      state: { plan: "VIP", price: 1999 }
+    })
+  }
+  style={{
+    width: "100%",
+    marginTop: "1rem",
+    padding: "12px",
+    backgroundColor: "#28a745",
+    color: "#fff",
+    border: "none",
+    borderRadius: "6px",
+    fontSize: "16px",
+    cursor: "pointer"
+  }}
+>
+  Choose VIP
+</button>
+
         </div>
       </div>
       </div>
