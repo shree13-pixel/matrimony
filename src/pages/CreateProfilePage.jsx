@@ -708,10 +708,7 @@ const handleNotificationLater = () => {
         return (
           
           <div className="form-section">
-            <div className="form-group">
-              <label>Password:</label>
-              <input type="password" name="password" value={profile.password} onChange={handleChange} placeholder="Create a strong password" />
-            </div>
+            
             <h3><i className="fas fa-camera"></i> Upload Photos</h3>
             <div className="form-group">
               <label>Profile Photos (Max 6):</label>
@@ -756,6 +753,10 @@ const handleNotificationLater = () => {
                 </div>
               </div>
             )}
+            <div className="form-group">
+              <label>Password:</label>
+              <input type="password" name="password" value={profile.password} onChange={handleChange} placeholder="Create a strong password" />
+            </div>
           </div>
         );
       /*case 7:
