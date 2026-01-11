@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+/*import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import CreateProfilePage from "../pages/CreateProfilePage";
 import MatchesPage from "../pages/MatchesPage";
@@ -14,5 +14,5 @@ export default function AppRoutes() {
       </Routes>
     </BrowserRouter>
   );
-}
+}*/
 

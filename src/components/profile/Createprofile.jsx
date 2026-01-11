@@ -1,4 +1,4 @@
-export default function CreateProfile() {
+/*export default function CreateProfile() {
   return (
     <div style={{ padding: 20 }}>
       <h2>Create Profile</h2>
@@ -75,4 +75,4 @@ export default function CreateProfile() {
       <button>Create Profile</button>
     </div>
   );
-}
+}*/
